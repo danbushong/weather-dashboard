@@ -1,41 +1,41 @@
-
-
-
-//what will happen when the page loads
 $(document).ready(function () {
 
+    // FUNCTIONS
     function show(data) {
-        
-
-
-
-
+        return "<h2>" + data.name + moment().format(' (MM/DD/YYYY)') + "</h2>" +
+            `
+        <p><strong>Temperature</strong>: ${data.main.temp} °F</p>
+        <p><strong>Humidity</strong>: ${data.main.humidity}%</p>
+        <p><strong>Wind Speed</strong>: ${data.wind.speed} MPH</p>
+        `
     }
-    function showUV(data) {
+    
 
+    function displayCities(cityList) {
+        $('.city-list').empty();
+        var list = localStorage.getItem("cityList");
+        cityList = (JSON.parse(list));
+        // add a new div to fit how many things are in local storage
+        if (list) {
+            for (var i = 0; i < cityList.length; i++) {
+                var container = $("<button>test</button>").click(function(){
 
-
-
+                })
+                //add to the top of list
+                $('.city-list').prepend(container);
+            }
+        }
     }
-    function displayCities(data) {
 
-
-
-
-    }
     function showForecast(data) {
-        var forecast = data.list;
-
-
-
+        var forecast = data.list; 
         var currentForecast = [];
         for (var i = 0; i < forecast.length; i++) {
 
             var currentObject = forecast[i];
             
 
-            var dt_time = currentObject.dt_txt.split(' ')[1]
-
+            var dt_time = currentObject.dt_txt.split(' ')[1] 
             if (dt_time === "12:00:00") {
                 
                 var main = currentObject.main;
@@ -65,78 +65,59 @@ $(document).ready(function () {
 
     }
 
+    
+    //add stored to the page 
+    var stored = localStorage.getItem("cityList")
 
 
-
-
-
-
-
-    //stored list on the side
-    var localStored = localStorage.getItem("cityList");
-    //if something is stored display it
     if (stored) {
+        //load past searched cities
         cityList = JSON.parse(stored)
-    } else {
+        
+    } 
+    else {
         cityList = []
     }
 
-    //what happens when submit/search gets clicked
+
+    
+    //puts it into the city list and then display current city and 5 day forcast
     $('#submitCity').click(function (event) {
-        //stop it from submitting the page and reloading
         event.preventDefault();
-
         var city = $('#city').val();
-
+       
         cityList.push(city);
-
+        
         localStorage.setItem("cityList", JSON.stringify(cityList));
-
+        
         displayCities(cityList);
+
+        if (city != '') {
+            //display current city information
+            $.ajax({
+                url: 'https://api.openweathermap.org/data/2.5/weather?q=' + city + "&units=imperial" + "&appid=fd591006a7dae5562993f7f902a78b07",
+                type: "GET",
+                success: function (data) {
+                    var display = show(data);
+                    $("#show").html(display);
+                }
+            });
+            //display 5 day forcast information
+            $.ajax({
+                url: 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + "&units=imperial" + "&appid=fd591006a7dae5562993f7f902a78b07",
+                type: "GET",
+                success: function (data) {
+                    var forecastDisplay = showForecast(data)
+                    
+                }
+            });
+           
+
+        } else {
+            $('#error').html('Please insert a city name:');
+        }
     });
 
-    if (city != "") {
-        $.ajax({
-            url: "api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=fd591006a7dae5562993f7f902a78b07",
-            type: "GET",
-            success: function (data) {
-                var display = showForecast(data);
-                $("#show").html(display);
-
-
-            }
-
-        })
-        $.ajax({
-            url: "api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=fd591006a7dae5562993f7f902a78b07",
-            type: "GET",
-            success: function (data) {
-                var forecastDisplay = showForcast(data)
-
-
-            }
-
-        })
-        $.ajax({
-            url: "api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=fd591006a7dae5562993f7f902a78b07",
-            type: "GET",
-            success: function (data) {
-                var forecastDisplay = showForcast(data)
-
-
-            }
-
-        })
-    }
-
-
-
-
-
-
-
-
+    displayCities(cityList);
 
 });
-
-
