@@ -5,6 +5,12 @@ h1{
     color: white;
     margin: 0 auto;
 }
+
+.historyButton{
+    background-color: rgb(66, 140, 224);
+    color: rgb(255, 255, 255)
+
+}
 .searchArea{
     margin-left: 30px;
 }
