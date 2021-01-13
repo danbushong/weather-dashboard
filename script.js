@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
-    var operatorClicked = false;
+    $(".h3").hide();
+    $(".card").hide();
 
     // FUNCTIONS
     function show(data) {
@@ -14,6 +15,7 @@ $(document).ready(function () {
 
 
     function displayCities(cityList) {
+
         $('.city-list').empty();
         var list = localStorage.getItem("cityList");
         cityList = (JSON.parse(list));
@@ -33,6 +35,8 @@ $(document).ready(function () {
             //this will make it so if a past location is clicked it will load the info for it using the text of the button
             $(".historyButton").on("click", function (event) {
                 event.preventDefault();
+                $(".h3").show();
+                $(".card").show();
 
                 //changes every button to say the text of the button clicked
                 var city = $(this).text();
@@ -101,8 +105,8 @@ $(document).ready(function () {
 
                 let htmlTemplate = `
             <div class="col-sm currentCondition">
-            <div class="card">
-                <div class="card-body 5-day">
+            <div class="badge">
+                <div class="badge-body 5-day">
                     <p><strong>${date}</strong></p>
                     <div><img src=${iconurl} /></div>
                     <p>Temp: ${temp} °F</p>
@@ -139,6 +143,8 @@ $(document).ready(function () {
     //puts it into the city list and then display current city and 5 day forcast
     $('#submitCity').click(function (event) {
         event.preventDefault();
+        $(".h3").show();
+        $(".card").show();
         //this is where the value of city gets stored in order to search the data
         var city = $('#city').val();
 
