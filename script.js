@@ -63,14 +63,14 @@ $(document).ready(function () {
                                     console.log(UVindex);
                                     $(".uv-index").text("UV Index: " + UVindex);
                                     if (UVindex < 3){
-                                        $(".uv-index").css("background-color","green");
+                                        $(".uv-index").css({"background-color":"green","text-align":"center","border-style":"solid","margin":"5%"});
                                     }
                                     else if (UVindex > 6){
-                                        $(".uv-index").css("background-color","green")
+                                        $(".uv-index").css({"background-color":"red","text-align":"center","border-style":"solid","margin":"5%"});
 
                                     }
                                     else{
-                                        $(".uv-index").css("background-color","yellow")
+                                        $(".uv-index").css({"background-color":"yellow","text-align":"center","border-style":"solid","margin":"5%"});
 
                                     }
                                 }
@@ -201,14 +201,14 @@ $(document).ready(function () {
                             console.log(UVindex)
                             $(".uv-index").text("UV Index: " + UVindex);
                             if (UVindex < 3){
-                                $(".uv-index").css("background-color","green");
+                                $(".uv-index").css({"background-color":"green","text-align":"center","border-style":"solid","margin":"5%"});
                             }
                             else if (UVindex > 6){
-                                $(".uv-index").css("background-color","green")
+                                $(".uv-index").css({"background-color":"red","text-align":"center","border-style":"solid","margin":"5%"});
 
                             }
                             else{
-                                $(".uv-index").css("background-color","yellow")
+                                $(".uv-index").css({"background-color":"yellow","text-align":"center","border-style":"solid","margin":"5%"});
 
                             }
                         }

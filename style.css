@@ -12,11 +12,20 @@ h1{
     color: white;
     margin: 0 auto;
 }
+.forcastTitle{
+    text-align: center;
+    background-color: white;
+    border: 5px solid black;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 0%;
+}   
 h4{
     background: white;
     color: black;
     text-align: center;
     border: 5px solid black;
+    
         
 }
 
@@ -35,7 +44,7 @@ h4{
 }
 .badge{
     background-color: white;
-    margin-bottom: 4%;
+    margin-bottom: 1%;
 }
 
 ul{
@@ -44,3 +53,4 @@ ul{
     border-style: solid;
     border-radius: 4px;
 }
+

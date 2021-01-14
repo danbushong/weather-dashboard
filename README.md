@@ -4,3 +4,6 @@ The local search history is saved under the search bar, and when clicked brings 
 
 
 url: https://danbushong.github.io/weather-dashboard/
+
+I can not figure out how to convert a jpg into a img
+
