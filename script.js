@@ -12,6 +12,7 @@ $(document).ready(function () {
         <p><strong>Wind Speed</strong>: ${data.wind.speed} MPH</p>
         `
     }
+    
 
 
     function displayCities(cityList) {
@@ -40,7 +41,7 @@ $(document).ready(function () {
 
                 //changes every button to say the text of the button clicked
                 var city = $(this).text();
- 
+
 
                 if (city != '') {
                     //display current city information
@@ -50,6 +51,30 @@ $(document).ready(function () {
                         success: function (data) {
                             var display = show(data);
                             $("#show").html(display);
+                            var lon = data.coord.lon;
+                            var lat = data.coord.lat;
+                            console.log(lon);
+                            console.log(lat);
+                            $.ajax({
+                                url: 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,daily=&appid=fd591006a7dae5562993f7f902a78b07',
+                                type: 'GET',
+                                success: function(data) {
+                                    var UVindex = data.current.uvi;
+                                    console.log(UVindex);
+                                    $(".uv-index").text("UV Index: " + UVindex);
+                                    if (UVindex < 3){
+                                        $(".uv-index").css("background-color","green");
+                                    }
+                                    else if (UVindex > 6){
+                                        $(".uv-index").css("background-color","green")
+
+                                    }
+                                    else{
+                                        $(".uv-index").css("background-color","yellow")
+
+                                    }
+                                }
+                            });
                         }
                     });
                     //display 5 day forcast information
@@ -61,6 +86,8 @@ $(document).ready(function () {
 
                         }
                     });
+                    
+
 
 
                 } else {
@@ -162,7 +189,32 @@ $(document).ready(function () {
                 success: function (data) {
                     var display = show(data);
                     $("#show").html(display);
+                    var lon = data.coord.lon
+                    var lat = data.coord.lat
+                    console.log(lon)
+                    console.log(lat)
+                    $.ajax({
+                        url: 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,daily=&appid=fd591006a7dae5562993f7f902a78b07',
+                        type: 'GET',
+                        success: function(data) {
+                            var UVindex = data.current.uvi;
+                            console.log(UVindex)
+                            $(".uv-index").text("UV Index: " + UVindex);
+                            if (UVindex < 3){
+                                $(".uv-index").css("background-color","green");
+                            }
+                            else if (UVindex > 6){
+                                $(".uv-index").css("background-color","green")
+
+                            }
+                            else{
+                                $(".uv-index").css("background-color","yellow")
+
+                            }
+                        }
+                    })
                 }
+                
             });
             //display 5 day forcast information
             $.ajax({
@@ -173,6 +225,7 @@ $(document).ready(function () {
 
                 }
             });
+            
 
 
         } else {
